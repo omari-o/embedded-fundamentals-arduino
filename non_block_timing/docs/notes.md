@@ -1,0 +1,3 @@
+- Polling is used because this is a small system and the method is simple to implement
+- If the system had a lot more leds to blink then I would have to take into account properly allocating resources and latency, among other things.
+- Also, if the system had other tasks to run that were higher importance/priority polling would take up valuable CPU
