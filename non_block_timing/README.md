@@ -6,9 +6,9 @@ This project demonstrates how to manage multiple time-dependent tasks on a resou
 **Hardware:** Arduino Uno, two LEDs with current limiting resistors
 
 **Key Concepts Demonstrated:**
-– Multitasking using millis() instead of delay()
-– Independent task timing and state management
-– State-based GPIO control
+- Multitasking using millis() instead of delay()
+- Independent task timing and state management
+- State-based GPIO control
 
 **Why This Matters:**
 Blocking delays prevent responsive systems and don’t scale to real embedded applications.
