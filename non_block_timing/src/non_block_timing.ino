@@ -1,36 +1,49 @@
-// project #2 - non block timing
-// program doesn't stop cpu execution, multiple tasks can be handled concurrently
+/*
+ * non-blocking timing using millis()
+ * demonstrates cooperative multitasking with multiple time based tasks without blocking delays
+*/
 
-int led1Pin = 2;
-int led2Pin = 3;
-int led1State = HIGH;
-int led2State = HIGH;
-unsigned long led1Timer = 0;
-unsigned long led2Timer = 0;
-unsigned long led1Delay = 3000;
-unsigned long led2Delay = 5000;
+// PIN CONFIGURATIONS
+const uint8_t LED1_PIN = 2;
+const uint8_t LED2_PIN = 3;
+
+// TIMING CONFIGURATIONS (MILLISECONDS)
+const unsigned long LED1_INTERVAL = 3000;
+const unsigned long LED2_INTERVAL = 5000;
+
+// RUNTIME STATE
+bool led1State = HIGH;
+bool led2State = HIGH;
+
+unsigned long led1LastToggleTime = 0;
+unsigned long led2LastToggleTime = 0;
 
 void setup() {
     // set led pins as outputs
-    pinMode(led1Pin, OUTPUT);
-    pinMode(led2Pin, OUTPUT);
+    pinMode(LED1_PIN, OUTPUT);
+    pinMode(LED2_PIN, OUTPUT);
     // set led states
-    digitalWrite(led1Pin, led1State);
-    digitalWrite(led2Pin, led2State);
+    digitalWrite(LED1_PIN, led1State);
+    digitalWrite(LED2_PIN, led2State);
 }
 
 void loop() {
     // store current millis reading to calculate delays for respective leds
     unsigned long currMillis = millis();
+    
+    handleLedToggle(LED1_PIN, LED1_INTERVAL, currMillis, led1LastToggleTime, led1State);
+    handleLedToggle(LED2_PIN, LED2_INTERVAL, currMillis, led2LastToggleTime, led2State);
+}
 
-    if (currMillis - led1Timer > led1Delay) {  // delay time reached for 1st led 
-        led1Timer = currMillis;
-        led1State = !led1State;
-        digitalWrite(led1Pin, led1State);
-    }
-    if (currMillis - led2Timer > led2Delay) {  // delay time reached for 2nd led
-        led2Timer = currMillis;
-        led2State = !led2State;
-        digitalWrite(led2Pin, led2State);
+void handleLedToggle( uint8_t pin,
+                      unsigned long interval,
+                      unsigned long currTime,
+                      unsigned long &lastToggleTime,
+                      bool &state )
+{
+    if (currTime - lastToggleTime > interval) {  // delay time reached for 2nd led
+        lastToggleTime = currTime;
+        state = !state;
+        digitalWrite(pin, state);
     }
 }
