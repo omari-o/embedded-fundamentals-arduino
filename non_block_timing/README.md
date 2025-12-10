@@ -17,4 +17,5 @@ Blocking delays prevent responsive systems and don’t scale to real embedded ap
 Each LED maintains its own timer + state, allowing independent behavior without interrupts or RTOS support, although it does poll the elapsed time each trip through the main loop
 
 **Limitations/Future Work:**
-Future iterations could explore swapping to interrupts or hardware timers.
+- Timing precision is limited by millis() and loop execution times
+- Future iterations could explore swapping to interrupts or hardware timers.
