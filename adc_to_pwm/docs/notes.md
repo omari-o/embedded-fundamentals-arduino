@@ -1,1 +1,1 @@
-initally just used the instantaneous value from the potentiometer but after seeing how much the value jumps around I decided to add a moving average filter
+- I was initally just using the instantaneous value read from the potentiometer, but noticed there was some signal bouncing that would briefly, but noticeably change the brightness of the LED. After seeing seeing the value jumps around using the serial monitor I decided to implement a moving average filter to smooth the analog readings
